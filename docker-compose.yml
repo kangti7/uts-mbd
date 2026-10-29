@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres_Giast:
+    image: postgres:15
+    container_name: postgres_Giast
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "22129:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin_Giast:
+    image: dpage/pgadmin4
+    container_name: pgadmin_Giast
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@salam.ac.id
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    ports:
+      - "44129:80"
+    depends_on:
+      - postgres_Giast
+
+volumes:
+  pgdata:
